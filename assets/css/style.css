@@ -1,0 +1,8 @@
+#city-search {
+    border-radius: auto, 0, 0, auto;
+}
+
+#search-btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
