@@ -1,8 +1,29 @@
-#city-search {
-    border-radius: auto, 0, 0, auto;
+:root {
+    --bg-main: #FFF;
+    --bg-secondary: #F2F6FA;
+    --main: #19C3FB;
+    --secondary: #FFCD00;
+    --text-color: #0A0A0A;
+}
+
+#city-search:focus {
+    outline: none;
 }
 
 #search-btn {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+    background-color: var(--main);
+    border-color: var(--main);
+}
+
+#city-history {
+    background-color: var(--bg-secondary);
+    border-color: var(--bg-secondary);
+    color: var(--text-color);
+}
+
+#delete-btn {
+    background-color: var(--secondary);
+    border-color: var(--secondary);
 }
