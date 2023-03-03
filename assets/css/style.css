@@ -26,4 +26,5 @@
 #delete-btn {
     background-color: var(--secondary);
     border-color: var(--secondary);
+    color: var(--text-color);
 }

@@ -17,31 +17,54 @@
     </nav>
 
     <div class="col mx-4">
-        <div class="col-4">
-                <h2>Search for a City:</h2>
-                <div class="input-group mb-3">
-                    <input id="city-search" type="text" class="form-control" placeholder="San Diego" aria-label="Enter city name">
-                    <div class="input-group-append">
-                        <button id="search-btn" class="btn btn-primary" type="button">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                    </div>
+      <div class="row justify-content-around">
+        <div class="col-3">
+          <h2>Search for a City:</h2>
+          <div class="input-group mb-3">
+              <input id="city-search" type="text" class="form-control" placeholder="San Diego" aria-label="Enter city name">
+              <div class="input-group-append">
+                  <button id="search-btn" class="btn btn-primary" type="button">
+                      <i class="fa-solid fa-magnifying-glass"></i>
+                  </button>
+              </div>
+          </div>
+          <hr>
+          <div id="search-history">
+              <div class="col-12">
+                <div class="input-group mb-3 d-flex">
+                  <button id="city-history" class="btn btn-secondary flex-grow-1">
+                    San Diego
+                  </button>
+                  <button id="delete-btn" class="btn btn-primary flex-grow-0">
+                    <i class="fa-solid fa-minus"></i>
+                  </button>
                 </div>
-                <hr>
-                <div id="search-history">
-                      <div class="col-12">
-                        <div class="input-group mb-3 d-flex">
-                          <button id="city-history" class="btn btn-secondary flex-grow-1">
-                            San Diego
-                          </button>
-                          <button id="delete-btn" class="btn btn-primary flex-grow-0">
-                            <i class="fa-solid fa-minus"></i>
-                          </button>
-                        </div>
-                      </div>
-                  </div>
-                </ul>
+              </div>
+          </div>
         </div>
+
+        <div class="col-8">
+          <div class="row">
+            <div id="today-container" class="col-12">
+              <div class="row align-items-center py-4">
+                <div class="col-4">
+                  <p id="current-time">12:00</p>
+                  <p id="todays-date">03-03-2023</p>
+                  <h2 id="current-city">San Diego</h2>
+                </div>
+                <div class="col-4 text-center">
+                  <h2 id="tempurature">72</h2>
+                  <p id="wind">8mph</p>
+                  <p id="humidity">33%</p>
+                </div>
+                <div class="col-4 text-center">
+                  <img src="https://placehold.jp/150x150.png" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>  
     </div>
     <!-- font awesome kit -->
     <script src="https://kit.fontawesome.com/ced0ff2264.js" crossorigin="anonymous"></script>
