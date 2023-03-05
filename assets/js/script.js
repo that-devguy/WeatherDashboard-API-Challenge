@@ -20,6 +20,10 @@ function getWeather() {
     const apiKey = "65bc935147144850e7fa81b394715fd0";
     let queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=imperial`;
 
+    // resets the search bar back to the placeholder city name
+    citySearchEl.value = '';
+    citySearchEl.placeholder = 'San Diego';
+
     fetch(queryURL)
         .then(respone => respone.json())
         .then((data) => {
@@ -34,8 +38,16 @@ function getWeather() {
 
             highLowTempEl.innerHTML = `<i class="fa fa-temperature-arrow-down"></i> ${lowTemp}` + ` <i class="fa fa-temperature-arrow-up"></i> ${highTemp}`;
 
-        })
+            weatherIconEl.setAttribute("src", `https://openweathermap.org/img/w/${data.weather[0].icon}.png`);
 
+        })
 }
 
 searchButton.addEventListener('click', getWeather);
+
+// // pressing the enter key when inside the search element will trigger getWeather function
+// citySearchEl.addEventListener('keypress', function(event){
+//     if (event.key === "Enter"){
+//         getWeather();
+//     }
+// });

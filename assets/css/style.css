@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Source+Sans+Pro:wght@300;400;600&display=swap');
+
 :root {
     --bg-main: #FFF;
     --bg-secondary: #F2F6FA;
@@ -5,6 +7,21 @@
     --secondary: #FFCD00;
     --text-main: #0A0A0A;
     --text-secondary: #FFF;
+    --font-main: 'Source Sans Pro', sans-serif;
+    --font-secondary: 'Libre Baskerville', serif;
+}
+
+* {
+    font-family: var(--font-main);
+}
+
+body {
+    background-color: var(--bg-secondary);
+}
+
+h1 {
+    font-family: var(--font-secondary);
+    font-weight: 700 !important;
 }
 
 #city-search:focus {
@@ -15,11 +32,21 @@
     background-color: var(--bg-main);
 }
 
+#today-container {
+    background-color: var(--bg-main);
+    border-radius: 0.375rem;
+}
+
 .date-block {
     background-color: var(--main);
     border-top-left-radius: 0.375rem;
     border-bottom-left-radius: 0.375rem;
     color: var(--text-secondary);
+}
+
+#fiveday-forecast {
+    background-color: var(--bg-main);
+    border-radius: 0.375rem;
 }
 
 #search-btn {
@@ -41,6 +68,26 @@
     color: var(--text-main);
 }
 
+.fa-temperature-arrow-down {
+    color: var(--main);
+}
+
+.fa-temperature-arrow-up {
+    color: var(--secondary);
+}
+
+#current-city {
+    font-family: var(--font-secondary);
+}
+
+#tempurature {
+    font-size: 3rem;
+    font-family: var(--font-secondary);
+}
+
+#weather-icon {
+    height: 150px;
+}
 /* .vertical-line {
     rotate: 90deg;
 } */
