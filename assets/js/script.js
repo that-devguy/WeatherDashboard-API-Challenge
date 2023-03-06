@@ -12,7 +12,7 @@ let windEl = document.getElementById ('wind');
 let highLowTempEl = document.getElementById ('high-low');
 let weatherIconEl = document.getElementById ('weather-icon');
 
-let savedCities = {};
+const savedCities = {};
 
 // gets the weather data from the open weather api
 function getWeather() {
@@ -73,13 +73,46 @@ function getWeather() {
         })
 }
 
-// displays the weather for San Diego on page load as a deafult city
+// loads the saved cities from local storage and creates a button for each city
+function loadSavedCities() {
+    let cities = JSON.parse(localStorage.getItem("savedCities")) || [];
+
+    cities.forEach((city) => {
+        let newCityDiv = document.createElement ("div");
+        newCityDiv.className = "input-group mb-1 d-flex";
+
+        newCityDiv.innerHTML = `
+        <div class="input-group mb-1 d-flex">
+            <button class="city-history btn btn-primary flex-grow-1">
+                ${city}
+            </button>
+            <button id="delete-btn" class="btn btn-primary flex-grow-0">
+                <i class="fa-solid fa-minus"></i>
+            </button>
+        </div>`;
+
+        let parentDiv = document.querySelector(".city-history-list");
+        parentDiv.appendChild(newCityDiv);
+
+        savedCities[city] = newCityDiv;
+    });
+}
+
+// on page load displays the weather first city in the array as the defualt weather, if the array is empty it will use San Diego as a deafult city
 window.onload = function() {
-    citySearchEl.value = 'San Diego';
-    getWeather();
+    let loadedCities = JSON.parse(localStorage.getItem("savedCities")) || [];
+    loadSavedCities();
+    if (loadedCities.length > 0){
+        citySearchEl.value = loadedCities[0];
+        getWeather();
+    } else {
+        citySearchEl.value = 'San Diego';
+        getWeather();
+    }
 }
 
 searchButton.addEventListener('click', getWeather);
+
 
 // displays the weather for the saved city the user clicks on
 document.querySelector('.city-history-list').addEventListener('click', function(event) {
