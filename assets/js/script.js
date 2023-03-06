@@ -12,6 +12,7 @@ let windEl = document.getElementById ('wind');
 let highLowTempEl = document.getElementById ('high-low');
 let weatherIconEl = document.getElementById ('weather-icon');
 
+let savedCities = {};
 
 // gets the weather data from the open weather api
 function getWeather() {
@@ -19,34 +20,32 @@ function getWeather() {
     // weather API Key
     const apiKey = "65bc935147144850e7fa81b394715fd0";
     let queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=imperial`;
-
-    let savedCities = {};
     
     function saveCity(city) {
+        // checks to see if the city already exists, if it does then do nothing, if it does NOT then create a new city button
         if (savedCities[city]) {
-            savedCities[city].textContent = city;
-        } else {
-            let newCityDiv = document.createElement ("div");
-            newCityDiv.className = "input-group mb-1 d-flex";
-    
-            newCityDiv.innerHTML = `
-            <div class="input-group mb-1 d-flex">
-                <button class="city-history btn btn-primary flex-grow-1">
-                    ${city}
-                </button>
-                <button id="delete-btn" class="btn btn-primary flex-grow-0">
-                    <i class="fa-solid fa-minus"></i>
-                </button>
-            </div>`;
-    
-            let parentDiv = document.querySelector(".city-history-list");
-            parentDiv.appendChild(newCityDiv);
-            savedCities[city] = newCityDiv;
+            return;
         }
+        
+        let newCityDiv = document.createElement ("div");
+        newCityDiv.className = "input-group mb-1 d-flex";
+
+        newCityDiv.innerHTML = `
+        <div class="input-group mb-1 d-flex">
+            <button class="city-history btn btn-primary flex-grow-1">
+                ${city}
+            </button>
+            <button id="delete-btn" class="btn btn-primary flex-grow-0">
+                <i class="fa-solid fa-minus"></i>
+            </button>
+        </div>`;
+
+        let parentDiv = document.querySelector(".city-history-list");
+        parentDiv.appendChild(newCityDiv);
+        savedCities[city] = newCityDiv;
 
         //saves the city button to the local storage
         localStorage.setItem("savedCities", JSON.stringify(Object.keys(savedCities)));
-
     }
 
     // resets the search bar back to the placeholder city name
