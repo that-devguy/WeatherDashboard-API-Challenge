@@ -2,7 +2,7 @@
 let searchButton = document.getElementById('search-btn');
 let deleteButton = document.getElementById('delete-btn');
 let citySearchEl = document.getElementById ('city-search');
-let searchHistoryEl = document.getElementById ('search-history');
+let cityListEl = document.getElementById ('city-history-list');
 let cityButton = document.getElementById ('city-history');
 let currentTimeEl = document.getElementById ('current-time');
 let currentDateEl = document.getElementById ('todays-date');
@@ -43,11 +43,17 @@ function getWeather() {
         })
 }
 
-searchButton.addEventListener('click', getWeather);
+// displays the weather for San Diego on page load as a deafult city
+window.onload = function() {
+    citySearchEl.value = 'San Diego';
+    getWeather();
+}
 
-// // pressing the enter key when inside the search element will trigger getWeather function
-// citySearchEl.addEventListener('keypress', function(event){
-//     if (event.key === "Enter"){
-//         getWeather();
-//     }
-// });
+// displays the weather for the saved city the user clicks on
+function getWeatherOld() {
+    citySearchEl.value = cityButton.textContent;
+    getWeather();
+}
+
+searchButton.addEventListener('click', getWeather);
+cityButton.addEventListener('click', getWeatherOld);
