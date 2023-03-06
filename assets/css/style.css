@@ -28,10 +28,6 @@ p {
     font-weight: 600;
 }
 
-#city-search:focus {
-    outline: none;
-}
-
 .search-container {
     background-color: var(--bg-main);
 }
@@ -46,7 +42,7 @@ p {
     border-top-left-radius: 0.375rem;
     border-bottom-left-radius: 0.375rem;
     color: var(--text-secondary);
-    height: 175px;
+    height: 200px;
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
@@ -64,10 +60,21 @@ p {
     border-color: var(--main);
 }
 
-#city-history {
-    background-color: var(--bg-secondary);
-    border-color: var(--bg-secondary);
-    color: var(--text-main);
+.city-history {
+    --bs-btn-color: var(--text-main);
+    --bs-btn-bg: var(--bg-secondary);
+    --bs-btn-border-color: var(--bg-secondary);
+    --bs-btn-hover-color: var(--text-main);
+    --bs-btn-hover-bg: var(--bg-secondary);
+    --bs-btn-hover-border-color: var(--bg-secondary);
+    --bs-btn-focus-shadow-rgb: none;
+    --bs-btn-active-color: var(--text-main);
+    --bs-btn-active-bg: var(--bg-secondary);
+    --bs-btn-active-border-color: var(--bg-secondary);
+    --bs-btn-active-shadow: none;
+    --bs-btn-disabled-color: var(--bg-secondary);
+    --bs-btn-disabled-bg: var(--bg-secondary);
+    --bs-btn-disabled-border-color: var(--bg-secondary);
 }
 
 #delete-btn {
