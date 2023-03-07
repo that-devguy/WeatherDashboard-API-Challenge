@@ -81,7 +81,9 @@ function getWeather() {
 
             highLowTempEl.innerHTML = `<i class="fa fa-temperature-arrow-down"></i> ${lowTemp}` + ` <i class="fa fa-temperature-arrow-up"></i> ${highTemp}`;
 
-            weatherIconEl.setAttribute("src", `https://openweathermap.org/img/w/${data.weather[0].icon}.png`);
+            weatherIconEl.setAttribute("src", `./assets/images/${data.weather[0].icon}.png`);
+
+            
 
             saveCity(data.name);
 
@@ -109,7 +111,7 @@ function getWeather() {
                 forecastDiv.innerHTML = `
                 <p class="forecast-date">${date}</p>
                 <hr>
-                <img class="forecast-icon" src="https://openweathermap.org/img/w/${iconCode}.png" alt="${forecast.weather.description}">
+                <img class="forecast-icon" src="./assets/images/${iconCode}.png" alt="${forecast.weather.description}">
                 <p><i class="fa fa-wind"></i> ${windSpeed}</p>
                 <p><i class="fa fa-temperature-arrow-up"></i> ${tempHigh}</p>
                 <p><i class="fa fa-temperature-arrow-down"></i> ${tempLow}</p>

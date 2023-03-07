@@ -122,6 +122,11 @@ p {
     height: 150px;
 }
 
+.forecast-icon {
+    height: 4rem;
+    margin-bottom: 1rem;
+}
+
 /* .vertical-line {
     rotate: 90deg;
 } */
