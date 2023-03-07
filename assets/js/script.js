@@ -47,6 +47,15 @@ function getWeather() {
         let parentDiv = document.querySelector(".city-history-list");
         parentDiv.appendChild(newCityDiv);
 
+        let deleteButton = newCityDiv.querySelector(".delete-city");
+
+        // click the delete button then remove the city from local storage and delete the newCityDiv
+        deleteButton.addEventListener("click", function () {
+            parentDiv.removeChild(newCityDiv);
+            delete savedCities[city];
+            localStorage.setItem("savedCities", JSON.stringify(Object.keys(savedCities)));
+          });
+
         savedCities[city] = newCityDiv;
 
         //saves the city button to the local storage
