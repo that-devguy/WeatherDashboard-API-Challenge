@@ -39,13 +39,14 @@ function getWeather() {
             <button class="city-history btn btn-primary flex-grow-1">
                 ${city}
             </button>
-            <button id="delete-btn" class="btn btn-primary flex-grow-0">
+            <button id="delete-btn" class="btn btn-primary delete-city flex-grow-0">
                 <i class="fa-solid fa-minus"></i>
             </button>
         </div>`;
 
         let parentDiv = document.querySelector(".city-history-list");
         parentDiv.appendChild(newCityDiv);
+
         savedCities[city] = newCityDiv;
 
         //saves the city button to the local storage
@@ -56,6 +57,7 @@ function getWeather() {
     citySearchEl.value = '';
     citySearchEl.placeholder = 'San Diego';
 
+    //gets the api weather data for the current day
     fetch(weatherURL)
         .then(response => response.json())
         .then((data) => {
@@ -75,14 +77,15 @@ function getWeather() {
             saveCity(data.name);
 
         });
-
+    
+    // gets the api weather data for the 5 day forecast
     fetch(forecastURL)
         .then(response => response.json())
         .then((data) => {
             const forecastData = data.list.filter(item => item.dt_txt.includes("12:00:00"));
             console.log(data);
-            forecastData.forEach((forecast) => {
-                let date = new Date(forecast.dt * 1000).toLocaleDateString("en-US" , {weekday: "long"});
+                forecastData.forEach((forecast) => {
+                let date = new Date(forecast.dt * 1000).toLocaleDateString("en-US" , {weekday: "short"});
                 let iconCode = forecast.weather[0].icon;
                 let tempLow = forecast.main.temp_min;
                 let tempHigh = forecast.main.temp_max;
@@ -95,7 +98,8 @@ function getWeather() {
                 forecastDiv.className = "col-2 py-4 text-center";
 
                 forecastDiv.innerHTML = `
-                <p>${date}</p>
+                <p class="forecast-date">${date}</p>
+                <hr>
                 <img class="forecast-icon" src="https://openweathermap.org/img/w/${iconCode}.png" alt="${forecast.weather.description}">
                 <p><i class="fa fa-wind"></i> ${windSpeed}</p>
                 <p><i class="fa fa-temperature-arrow-up"></i> ${tempHigh}</p>
@@ -121,13 +125,22 @@ function loadSavedCities() {
             <button class="city-history btn btn-primary flex-grow-1">
                 ${city}
             </button>
-            <button id="delete-btn" class="btn btn-primary flex-grow-0">
+            <button id="delete-btn" class="btn btn-primary delete-city flex-grow-0">
                 <i class="fa-solid fa-minus"></i>
             </button>
         </div>`;
 
         let parentDiv = document.querySelector(".city-history-list");
         parentDiv.appendChild(newCityDiv);
+
+        let deleteButton = newCityDiv.querySelector(".delete-city");
+
+        // click the delete button then remove the city from local storage and delete the newCityDiv
+        deleteButton.addEventListener("click", function () {
+            parentDiv.removeChild(newCityDiv);
+            delete savedCities[city];
+            localStorage.setItem("savedCities", JSON.stringify(Object.keys(savedCities)));
+          });
 
         savedCities[city] = newCityDiv;
     });

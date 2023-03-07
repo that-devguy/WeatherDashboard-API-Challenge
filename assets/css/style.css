@@ -104,6 +104,10 @@ p {
     width: fit-content;
 }
 
+.forecast-date {
+    font-family: var(--font-secondary);
+}
+
 #current-city {
     font-family: var(--font-secondary);
     margin-bottom: 0;
