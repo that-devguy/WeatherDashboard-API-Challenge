@@ -1,6 +1,5 @@
 // variables 
 let searchButton = document.getElementById('search-btn');
-let deleteButton = document.getElementById('delete-btn');
 let citySearchEl = document.getElementById ('city-search');
 let cityListEl = document.getElementById ('city-history-list');
 let cityButton = document.getElementsByClassName ('city-history');
@@ -11,15 +10,20 @@ let tempuratureEl = document.getElementById ('tempurature');
 let windEl = document.getElementById ('wind');
 let highLowTempEl = document.getElementById ('high-low');
 let weatherIconEl = document.getElementById ('weather-icon');
+let forecastContainerEl = document.getElementById ('fiveday-forecast');
 
 const savedCities = {};
 
 // gets the weather data from the open weather api
 function getWeather() {
+
+    forecastContainerEl.innerHTML = '';
     cityName = citySearchEl.value.trim();
     // weather API Key
     const apiKey = "65bc935147144850e7fa81b394715fd0";
-    let queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=imperial`;
+    let weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=imperial`;
+
+    let forecastURL = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}&units=imperial`;
     
     function saveCity(city) {
         // checks to see if the city already exists, if it does then do nothing, if it does NOT then create a new city button
@@ -52,8 +56,8 @@ function getWeather() {
     citySearchEl.value = '';
     citySearchEl.placeholder = 'San Diego';
 
-    fetch(queryURL)
-        .then(respone => respone.json())
+    fetch(weatherURL)
+        .then(response => response.json())
         .then((data) => {
             console.log(data);
             currentCityNameEl.textContent = data.name;
@@ -70,7 +74,38 @@ function getWeather() {
 
             saveCity(data.name);
 
-        })
+        });
+
+    fetch(forecastURL)
+        .then(response => response.json())
+        .then((data) => {
+            const forecastData = data.list.filter(item => item.dt_txt.includes("12:00:00"));
+            console.log(data);
+            forecastData.forEach((forecast) => {
+                let date = new Date(forecast.dt * 1000).toLocaleDateString("en-US" , {weekday: "long"});
+                let iconCode = forecast.weather[0].icon;
+                let tempLow = forecast.main.temp_min;
+                let tempHigh = forecast.main.temp_max;
+                let windSpeed = forecast.wind.speed;
+
+                tempLow = Math.floor(forecast.main.temp_min) + '°F';
+                tempHigh = Math.floor(forecast.main.temp_max) + '°F';
+
+                let forecastDiv = document.createElement("div");
+                forecastDiv.className = "col-2 py-4 text-center";
+
+                forecastDiv.innerHTML = `
+                <p>${date}</p>
+                <img class="forecast-icon" src="https://openweathermap.org/img/w/${iconCode}.png" alt="${forecast.weather.description}">
+                <p><i class="fa fa-wind"></i> ${windSpeed}</p>
+                <p><i class="fa fa-temperature-arrow-up"></i> ${tempHigh}</p>
+                <p><i class="fa fa-temperature-arrow-down"></i> ${tempLow}</p>
+                `;
+                forecastContainerEl.appendChild(forecastDiv);
+            });
+
+
+        });
 }
 
 // loads the saved cities from local storage and creates a button for each city
